@@ -10,7 +10,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>Cartoon Gifs!</h1>
+            <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                      <h1 class="display-4">Cartoon Gifs</h1>
+                      <p class="lead">Easy way to find Gifs of your favorite cartoons!S</p>
+                    </div>
+                  </div>
         <div class="row">
             <div id="buttons-view"></div>
         </div>
@@ -24,11 +29,12 @@
         <!--form to add buttons-->    
             <div class="col-4">
                 <form id="cartoon-Form">
-                    <label for="cartoon-input">Add a Cartoon</label>
+                    <!-- Button triggers new cartoon to be added -->
+                    <input id="add-cartoon" type="submit" value="Add a Cartoon!" class="btn btn-success">
+                    <label for="cartoon-input"></label>
                     <input type="text" id="cartoon-input"><br>
                 
-                    <!-- Button triggers new cartoon to be added -->
-                    <input id="add-cartoon" type="submit" value="Add a Cartoon!">
+                    
                 </form>
             </div>
         </div>
@@ -37,6 +43,7 @@
     
         
     </div>
+    
 
 
 

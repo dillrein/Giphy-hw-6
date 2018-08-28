@@ -1,13 +1,16 @@
+//api placeholder
 //api = NUmzu2fHHFydYfDYcToF2MqA12752Vfe;
+
+
 var cartoons = ["Spongebob", "Tom and Jerry", "Family Guy"];
 
-// displayCartoongif function re-renders the HTML to display the appropriate content
+// displayCartoongif 
 function displayCartoongif() {
 
     var cartoon = $(this).attr("data-name");
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + cartoon + "&api_key=NUmzu2fHHFydYfDYcToF2MqA12752Vfe&limit=10";
 
-    // Creating an AJAX call for the specific cartoon button being clicked
+    // AJAX call per gif
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -19,20 +22,20 @@ function displayCartoongif() {
             //clears divs of gifs
             $("#cartoons-view").empty();
 
-            //for loop to display 10 gifs.
+            //for loop to display 10 gifs. (10 comes from queryURL limit 10)
             for (var i = 0; i < results.length; i++) {
                 var cartoonDiv = $("<div class='cartoon'>");
 
                 var p = $("<p>").text("Rating: " + results[i].rating);
 
                 //creating <img> at a still frame position.
-                var image = $("<img>").attr("src", results[i].images.fixed_height.url)
+                var image = $("<img>").attr("src", results[i].images.fixed_height_still.url)
                 .attr("class", "gif")
-                //.attr("data-still", results[i].images.fixed_height.url)
-                //.attr("data-animate", results[i].images.fixed_height.url)
-                //.attr("data-state", "still")
-                //.attr("class", "gif");
-                console.log(image);
+                .attr("data-still", results[i].images.fixed_height_still.url)
+                .attr("data-animate", results[i].images.fixed_height.url)
+                .attr("data-state", "still")
+                .attr("class", "gif");
+                
 
                 cartoonDiv.append(p);
                 cartoonDiv.append(image);
@@ -42,7 +45,8 @@ function displayCartoongif() {
 
                 
             }
-            $(".gif").on("click", gifplayer());
+            //saw this as extension to possibly pause gifs. needs other documentation to work.
+            //$(".gif").on("click", gifplayer());
             
         });
 
@@ -63,6 +67,7 @@ function renderButtons() {
         var a = $("<button>");
         // Adding a class of cartoon-btn to our button
         a.addClass("cartoon-btn");
+        a.addClass("btn btn-dark")
         // Adding a data-attribute
         a.attr("data-name", cartoons[i]);
         // Providing the initial button text
@@ -77,7 +82,7 @@ function renderButtons() {
 
 
 
-// Form Subtmit button to create cartoon button.
+// Form Submit button to create cartoon button.
 $("#add-cartoon").on("click", function (event) {
     event.preventDefault();
     // This line grabs the input from the textbox
@@ -94,26 +99,24 @@ $("#add-cartoon").on("click", function (event) {
 //$(document).on("click", ".cartoon-btn", $("#cartoons-view").empty());
 $(document).on("click", ".cartoon-btn", displayCartoongif);
 
+//gif freeze functionality.
+$(document).on("click", ".gif", function() {
+    
+    var state = $(this).attr("data-state");
+    
+    if (state === "still") {
+      $(this).attr("src", $(this).attr("data-animate"));
+      $(this).attr("data-state", "animate");
+    } else {
+      $(this).attr("src", $(this).attr("data-still"));
+      $(this).attr("data-state", "still");
+    }
+  });
 
 
 
 
 
-//freeze frame for gifs.
-// $(".gif").on("click", function() {
-//     // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-//     var state = $(".gif").attr("data-state");
-//     // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-//     // Then, set the image's data-state to animate
-//     // Else set src to the data-still value
-//     if (state === "still") {
-//       $(".gif").attr("src", $(".gif").attr("data-animate"));
-//       $(".gif").attr("data-state", "animate");
-//     } else {
-//       $(".gif").attr("src", $(".gif").attr("data-still"));
-//       $(".gif").attr("data-state", "still");
-//     }
-//   });
-// Calling the renderButtons function to display the intial buttons
+// inital buttons
 renderButtons();
 
