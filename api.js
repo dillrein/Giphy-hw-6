@@ -2,6 +2,8 @@
 //api = NUmzu2fHHFydYfDYcToF2MqA12752Vfe;
 
 
+
+
 var cartoons = ["Spongebob", "Tom and Jerry", "Family Guy"];
 
 // displayCartoongif 
@@ -16,7 +18,7 @@ function displayCartoongif() {
         method: "GET"
     })
         .then(function (response) {
-            console.log(response);
+            //console.log(response);
             var results = response.data;
 
             //clears divs of gifs
@@ -78,9 +80,6 @@ function renderButtons() {
         
     }
 }
-
-
-
 
 // Form Submit button to create cartoon button.
 $("#add-cartoon").on("click", function (event) {
